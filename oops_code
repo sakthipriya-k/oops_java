@@ -1,0 +1,847 @@
+                              OOPS
+topic:class & object
+
+problem 1(include->this,instance,constructor,parameter,method)
+
+
+// Blueprint class for Student
+class Student {
+    String name; // variable to store student's name
+    int rn;      // variable to store student's roll number
+
+    // Constructor: called when we create a new Student object
+    Student(String name, int rn) {
+        this.name = name; // "this.name" means class variable, "name" is the parameter
+        this.rn = rn;     // assigning constructor parameter to class variable
+    }
+
+    // Method to display student information
+    void displayInfo() {
+        System.out.println("name : " + name);       // prints student name
+        System.out.println("rollnumber : " + rn);   // prints roll number
+    }
+}
+
+// Main class that contains the entry point of the program
+public class Demo {
+    public static void main(String[] args) {
+        // Creating two Student objects using constructor
+        Student s1 = new Student("priya", 18);   // object s1 with name "priya" and roll number 18
+        Student s2 = new Student("sakthi", 19); // object s2 with name "sakthi" and roll number 19
+
+        // Calling method to display info of s1
+        s1.displayInfo();
+
+        System.out.println(); // prints a blank line
+
+        // Calling method to display info of s2
+        s2.displayInfo();
+    }
+}
+
+output:
+
+name : priya
+rollnumber : 18
+
+name : sakthi
+rollnumber : 19
+-------------------------------------------------------------------------------------------------------------------------------------problem 2 (without this)
+
+class Student{
+    String name;
+    int rn;
+
+    void displayInfo(){
+        System.out.println("name : " +name);
+        System.out.println("rollnumber : " +rn);
+    }
+}
+    public class demo{
+        public static void main(String[] args){
+            Student s1 = new Student();
+            Student s2 = new Student();
+            s1.name = "sakthi";
+            s1.rn = 19;
+
+            s1.displayInfo();
+            System.out.println();
+            s2.displayInfo();
+        }
+    }
+
+
+
+output:
+name : sakthi
+rollnumber : 19
+
+name : null
+rollnumber : 0
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------problem 3(using operator)
+
+class Stud{
+    int a;
+    int b;
+    int c;
+    void display(){
+        System.out.println("the sum is : " +c);
+    }
+}
+    public class Sums{
+        public static void main(String[] args){
+            Stud s1 = new Stud();
+            s1.a = 23;
+            s1.b = 19;
+            s1.c = s1.a + s1.b;
+            s1.display();
+        }
+    }
+output:
+
+the sum is : 42
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------problem 4(static method)
+
+class account{
+    String accountHolderName;
+    int balance;
+    static int accountCount = 0;
+//constructor
+    account(String accountHolderName,int balance){
+        this.accountHolderName = accountHolderName;
+        this.balance = balance;
+        accountCount++;
+    }
+ // Instance method to display account details
+     void displayAccount() {
+        System.out.println("Account Holder: " + accountHolderName + ", Balance: " + balance);
+    }
+
+     // Static method to show total accounts
+    static void showTotalAccount(){
+        System.out.println("Total accounts : " +accountCount);
+    }
+}
+//main class
+    public class bank{
+        public static void main(String[] args){
+            account a1 = new account("sakthi",7000);
+            account a2 = new account("priya",6000);
+            account a3 = new account("kutty",3445);
+
+            a1.displayAccount();
+            a2.displayAccount();
+            a3.displayAccount();
+
+           account.showTotalAccount();
+
+        }
+    }
+output:
+
+Account Holder: sakthi, Balance: 7000
+Account Holder: priya, Balance: 6000
+Account Holder: kutty, Balance: 3445
+Total accounts : 3
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------problem 5(INHERITANCE--with constructor)
+
+class A{
+    A(){System.out.println("parent");}
+}
+
+class B extends A{
+    B() { System.out.println("child");}
+}
+
+public class Test{
+    public static void main(String[] args){
+        B obj = new B();
+    }
+}
+
+output:
+parent
+child
+---
+Problem 6: Basic Inheritance
+// Parent class
+class Parent {
+    void show() {
+        System.out.println("This is Parent class");
+    }
+}
+
+// Child class
+class Child extends Parent {
+    void display() {
+        System.out.println("This is Child class");
+    }
+}
+
+// Main class
+public class Example {
+    public static void main(String[] args) {
+        Child obj = new Child();
+        obj.show();     // from Parent
+        obj.display();  // from Child
+    }
+}
+
+
+Output:
+
+This is Parent class
+This is Child class
+---
+Problem 7: super() and method overriding
+// Parent class
+class Animal {
+
+    // Constructor of Animal class
+    Animal() {
+        System.out.println("Animal created");
+    }
+
+    // Method of Animal class
+    void sound() {
+        System.out.println("Animal makes sound");
+    }
+}
+
+// Child class
+class Dog extends Animal {
+
+    // Constructor of Dog class
+    Dog() {
+        super(); // Calls Animal() constructor first
+        System.out.println("Dog created");
+    }
+
+    // Method of Dog class
+    void sound() {
+        super.sound(); // Calls Animal's sound() first
+        System.out.println("Dog barks");
+    }
+}
+
+// Main class
+public class Demo {
+    public static void main(String[] args) {
+        Dog d = new Dog();   // Dog constructor runs (Animal → Dog)
+        d.sound();           // sound() runs (Animal → Dog)
+    }
+}
+
+
+Output:
+
+Animal created
+Dog created
+Animal makes sound
+Dog barks
+---
+Problem 8: this, super, and constructor chaining
+// Parent class
+class Vehicle {
+    int speed;
+
+    Vehicle(int speed) {
+        this.speed = speed;
+        System.out.println("Vehicle speed set is " + this.speed);
+    }
+
+    void display() {
+        System.out.println("Vehicle speed is " + speed);
+    }
+}
+
+// Child class
+class Car extends Vehicle {
+    String model;
+
+    Car(int speed, String model) {
+        super(speed);      // Calls Vehicle constructor
+        this.model = model;
+        System.out.println("Car model is " + this.model);
+    }
+
+    void show() {
+        super.display();   // Calls Vehicle's display()
+        System.out.println("Details are displayed");
+    }
+}
+
+// Main class
+public class DemoCar {
+    public static void main(String[] args) {
+        Car obj = new Car(120, "BMW");
+        obj.show();
+    }
+}
+
+
+Output:
+
+Vehicle speed set is 120
+Car model is BMW
+Vehicle speed is 120
+Details are displayed
+---
+problem 9 (multilevel inheritance)
+// Parent class
+class person {
+    // Constructor of Person class
+    person() {
+        System.out.println("person is created");  // Prints when Person constructor is called
+    }
+
+    // Method of Person class
+    void info() {
+        System.out.println("this is person");  // Prints when info() is called
+    }
+}
+
+// Child class of Person
+class employee extends person {
+    // Constructor of Employee class
+    employee() {
+        // Java automatically calls super() here if not written
+        // So Person constructor is called first, then Employee constructor
+        System.out.println("employee is created");  // Prints when Employee constructor runs
+    }
+
+    // Method of Employee class
+    void work() {
+        System.out.println("employee is working");  // Prints when work() is called
+    }
+}
+
+// Child class of Employee (Multilevel Inheritance)
+class manager extends employee {
+    // Constructor of Manager class
+    manager() {
+        super();  // Calls Employee constructor (which also calls Person constructor automatically)
+        System.out.println("manager is created");  // Prints when Manager constructor runs
+    }
+
+    // Method of Manager class
+    void manage() {
+        super.work();  // Calls Employee's work() method
+        System.out.println("manager is managing");  // Prints after calling parent work()
+    }
+}
+// Main class
+public class demo {
+    public static void main(String[] args) {
+        // Create an object of Manager
+        manager obj = new manager();
+        // Flow of constructor calls:
+        // 1. Person() -> prints "person is created"
+        // 2. Employee() -> prints "employee is created"
+        // 3. Manager() -> prints "manager is created"
+        obj.info();  // Prints: "this is person"
+        obj.work();  // Prints: "employee is working"
+        obj.manage(); // Then prints "manager is managing"
+    }
+}
+
+output:
+
+person is created
+employee is created
+manager is created
+this is person
+employee is working
+employee is working
+manager is managing
+---
+problem 10
+class vehicle{
+    int speed;
+    vehicle(int speed){
+        this.speed = speed;
+        System.out.println("vehicle speed set to " +speed);
+    }
+
+    void showspeed(){
+        System.out.println("vehicle speed is " +speed);
+    }
+
+}
+
+class car extends vehicle{
+    String model;
+    car(String model,int speed){
+        super(speed);
+        this.model = model;
+        System.out.println("car model is " +model);
+    }
+
+    void showcar(){
+        super.showspeed();
+        System.out.println("car model:  " +this.model);
+    }
+}
+
+class sportscar extends car{
+    boolean turbo;
+    sportscar(String model,int speed,boolean turbo){
+        super(model,speed);
+        this.turbo = turbo;
+        System.out.println("sports car turbo enabled: " +turbo);
+    }
+
+    void showsports(){
+        super.showcar();
+        System.out.println("SportsCar details - Model: " + model + " Speed: " + speed + ", Turbo: " + turbo );
+    }
+}
+
+public class Test{
+    public static void main(String[] args) {
+        sportscar obj = new sportscar("BMW",120,true);
+        obj.showsports();
+    }
+}
+output:
+
+vehicle speed set to 120
+car model is BMW
+sports car turbo enabled: true
+vehicle speed is 120
+car model:  BMW
+SportsCar details - Model: BMW Speed: 120, Turbo: true
+---
+
+problem 11(hierarchical inheritance)
+
+class Vehicle {
+    void fuelType() {
+        System.out.println("This vehicle uses fuel.");
+    }
+}
+
+class Car extends Vehicle {
+    void wheels() {
+        System.out.println("Car has 4 wheels.");
+    }
+}
+
+class Bike extends Vehicle {
+    void wheels() {
+        System.out.println("Bike has 2 wheels.");
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Car obj = new Car();
+        obj.fuelType();  // Inherited from Vehicle
+        obj.wheels();    // Car's own method
+
+        Bike b1 = new Bike();
+        b1.fuelType();   // Inherited from Vehicle
+        b1.wheels();     // Bike's own method
+    }
+}
+
+output:
+this vehicle uses fuel
+Car has 4 wheels
+this vehicle uses fuel
+Bike has 2 wheels
+
+---
+
+problem 12(hybrid inheritance)
+// Parent class
+class Vehicle {
+    void fuelType() {
+        System.out.println("Vehicle uses fuel.");
+    }
+}
+
+// First child (part of multilevel)
+class Car extends Vehicle {
+    void wheels() {
+        System.out.println("Car has 4 wheels.");
+    }
+}
+
+// Second child (hierarchical)
+class Bike extends Vehicle {
+    void wheels() {
+        System.out.println("Bike has 2 wheels.");
+    }
+}
+
+// Multilevel child
+class SportsCar extends Car {
+    void turbo() {
+        System.out.println("SportsCar has turbo mode.");
+    }
+}
+
+// Main class
+public class Demo {
+    public static void main(String[] args) {
+        Car c = new Car();
+        c.fuelType();
+        c.wheels();
+
+        Bike b = new Bike();
+        b.fuelType();
+        b.wheels();
+
+        SportsCar s = new SportsCar();
+        s.fuelType();
+        s.wheels();
+        s.turbo();
+    }
+}
+
+
+output:
+Vehicle uses fuel.
+Car has 4 wheels.
+Vehicle uses fuel.
+Bike has 2 wheels.
+Vehicle uses fuel.
+Car has 4 wheels.
+SportsCar has turbo mode.
+
+---
+🔹 What is a Constructor?
+
+1.A special method used to initialize objects of a class.
+
+2.It runs automatically when an object is created.
+
+3.Name of the constructor = Name of the class
+
+4.No return type, not even void.
+---
+🔹 Types of Constructors
+
+1.Default Constructor
+
+No parameters
+
+Java provides it automatically if you don’t define any constructor
+---
+class Demo {
+    Demo() {  // default constructor
+        System.out.println("Object is created");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Demo d = new Demo();  // prints "Object is created"
+    }
+}
+---
+2.Parameterized Constructor
+
+Takes arguments to initialize object with specific values
+
+class Demo {
+    int x;
+    Demo(int value) {   // parameterized constructor
+        x = value;
+        System.out.println("Value = " + x);
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Demo d = new Demo(10);  // prints "Value = 10"
+    }
+}
+
+---
+3.Constructor Overloading
+
+Multiple constructors in the same class with different parameters
+
+class Demo {
+    int x, y;
+
+    Demo() {  // no-arg constructor
+        x = 0; y = 0;
+    }
+
+    Demo(int a) {  // one-arg constructor
+        x = a; y = 0;
+    }
+
+    Demo(int a, int b) {  // two-arg constructor
+        x = a; y = b;
+    }
+
+    void display() {
+        System.out.println("x = " + x + ", y = " + y);
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Demo d1 = new Demo();
+        Demo d2 = new Demo(5);
+        Demo d3 = new Demo(3, 7);
+
+        d1.display();  // x=0, y=0
+        d2.display();  // x=5, y=0
+        d3.display();  // x=3, y=7
+    }
+}
+
+🔹 Key Points to Remember
+
+1.Constructor name = class name
+
+2.No return type
+
+3.Automatically called when object is created
+
+4.Can be overloaded (same name, different parameters)
+
+5.Can use this() to call another constructor in the same class
+
+6.Can use super() to call parent class constructor (if inheritance exists)
+---
+problem 14(ENCAPSULATION)
+
+class mobile{
+    private int price;
+
+
+public void setprice(int p){
+    if(p>1000)
+       price = p;
+    else
+       System.out.println("invaild price!!");
+}
+
+public int getprice(){
+    return price;
+}
+}
+public class demo{
+    public static void main(String[] args) {
+        mobile obj = new mobile();
+        obj.setprice(15000);
+
+        System.out.println("your price: " +obj.getprice());
+
+        obj.setprice(500);
+    }
+}
+
+
+
+output:
+your price: 15000
+invaild price!!
+---
+problem(ENCAPSULATION)
+
+class product{
+    private String name;
+    private int price;
+    private int quantity;
+
+    public void setDetails(String n , int p , int q){
+        if(p<=0 || q<=0){
+           System.out.println("invalid price or qantity");
+       }else {
+            name = n;
+            price = p;
+            quantity = q;
+        }
+    }
+    public void displayDetails(){
+        System.out.println("Name: " + name);
+        System.out.println("Price: " + price);
+        System.out.println("Quantity: " + quantity);
+    }
+
+    public int calculatetotal(){
+ 
+        return price * quantity;
+    }
+
+}
+
+public class demo{
+    public static void main(String[] args) {
+        product obj = new product();
+
+        obj.setDetails("laptop" , 10000 , 2);
+        obj.displayDetails();
+        System.out.println("total cost is: " +obj.calculatetotal());
+
+        obj.setDetails("Mouse", -500, 3);
+    }
+}
+output
+Name: laptop
+Price: 10000
+Quantity: 2
+total cost is: 20000
+invalid price or qantity
+---
+abstraction (interface)
+
+problem
+
+interface vehicle{
+    void move();
+}
+
+class bike implements vehicle {
+    public void move(){
+    System.out.println("bike moves fast");
+}
+}
+
+public class demo{
+    public static void main(String[] args) {
+        vehicle v1 = new bike();
+
+        v1.move();
+    }
+}
+
+
+output
+bike moves fast
+
+---
+
+problem
+(abstraction)
+// Abstract class
+abstract class Employee {
+    abstract void calculateSalary();  // abstract method
+
+    void companyName() {              // normal method
+        System.out.println("Works at ABC Corp");
+    }
+}
+
+// Concrete class
+class Manager extends Employee {
+    public void calculateSalary() {   // implement abstract method
+        System.out.println("Manager salary is 50000");
+    }
+}
+
+// Main class
+public class Demo {
+    public static void main(String[] args) {
+        Employee a1 = new Manager();  // reference of abstract class, object of concrete class
+        a1.companyName();             // call normal method
+        a1.calculateSalary();         // call implemented method
+    }
+}
+
+
+output
+Works at ABC Corp
+Manager salary is 50000
+
+
+---
+problem(both abstraction and interface)
+
+abstract class employee{
+    abstract void calculateSalary();
+
+
+void companyName(){
+    System.out.println("Works at ABC Corp");
+}
+}
+interface Bonus{
+    public void calculateBonus();
+}
+
+
+class manager extends employee implements Bonus{
+    public void calculateSalary(){
+        System.out.println("Manager salary is 50000");
+    }
+
+    public void calculateBonus(){
+        System.out.println("manager bonus is 10000");
+    }
+}
+ 
+public class demo{
+    public static void main(String[] args) {
+        employee a1 = new manager();
+        a1.companyName();
+        a1.calculateSalary();
+        Bonus b1 = new manager();
+        b1.calculateBonus();
+    }
+}
+ output
+Works at ABC Corp
+Manager salary is 50000
+manager bonus is 10000
+---
+problem              Polymorphism (compile time-static method)
+
+class Calculator{
+        int multiply(int a,int b) {
+            return a*b;
+        }
+        int multiply(int a, int b, int c) {
+            return a*b*c;
+        }
+
+    }
+    public class demo{
+        public static void main(String[] args) {
+            Calculator c1 = new Calculator();
+            System.out.println(c1.multiply(13,12));
+            System.out.println(c1.multiply(12, 12, 12));
+        }
+    }
+
+output
+156
+1728
+---
+problem                                                                  (run time-dynamic--overriding)
+class Animal{
+    void sound(){
+        System.out.println("animal makes sound");
+    }
+}
+class Cat extends Animal {
+    void sound(){
+        System.out.println("Cats meow");
+    }
+}
+
+public class demo{
+    public static void main(String[] args) {
+        Animal a1 = new Animal();
+        a1.sound();
+
+        Animal b1 = new Cat();
+        b1.sound();
+
+    }
+}
+
+output
+animal makes sound
+Cats meow
+---
+problem
+
+output
